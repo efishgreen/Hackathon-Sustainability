@@ -10,6 +10,7 @@ import java.awt.event.ActionEvent;
 public class EFishGreen {
 
 	private JFrame frame;
+	private JButton prevDataBut;
 
 	/**
 	 * Launch the application.
@@ -45,18 +46,18 @@ public class EFishGreen {
 		JPanel panel = new JPanel();
 		frame.getContentPane().add(panel, BorderLayout.SOUTH);
 		
-		JButton btnNewButton = new JButton("New button");
-		panel.add(btnNewButton);
+		prevDataBut = new JButton("Show Previous Data");
+		panel.add(prevDataBut);
 		
-		JButton importData = new JButton("Import");
-		importData.addActionListener(new ActionListener() {
+		JButton imDataBut = new JButton("Import New Data");
+		imDataBut.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 			}
 		});
-		panel.add(importData);
+		panel.add(imDataBut);
 		
-		JButton btnNewButton_2 = new JButton("New button");
-		panel.add(btnNewButton_2);
+		JButton genDataBut = new JButton("Generate Data");
+		panel.add(genDataBut);
 	}
 
 }
