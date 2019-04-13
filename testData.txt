@@ -1,0 +1,9 @@
+Date,Water,Level,Water,Temperature,pHLevel,Nitrate Level,Oxygen Level,Ammonia Level,Light Intensity,Air Temperature   
+12/12/19,8 inches,83 F,6.9,24 mg/L,7 ppm,0.024 mg/l,1,80 F,
+12/13/19,8 inches,83 F,6.9,24 mg/L,7 ppm,0.024 mg/l,1,80 F,
+12/14/19,8 inches,83 F,6.9,24 mg/L,7 ppm,0.024 mg/l,1,80 F,
+12/15/19,8 inches,83 F,6.9,24 mg/L,7 ppm,0.024 mg/l,1,80 F,  
+12/16/19,8 inches,83 F,6.9,24 mg/L,7 ppm,0.024 mg/l,1,80 F,
+12/17/19,8 inches,83 F,6.9,24 mg/L,7 ppm,0.024 mg/l,1,80 F,
+12/18/19,8 inches,83 F,6.9,24 mg/L,7 ppm,0.024 mg/l,1,80 F,
+12/19/19,8 inches,83 F,6.9,24 mg/L,7 ppm,0.024 mg/l,1,80 F  

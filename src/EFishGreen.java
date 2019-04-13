@@ -2,20 +2,37 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
+
 import java.awt.BorderLayout;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
+
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedHashMap;
+import java.util.Set;
 import java.awt.event.ActionEvent;
 import javax.swing.SpringLayout;
+
+import org.jfree.ui.RefineryUtilities;
+
 import java.awt.TextField;
 import javax.swing.JLabel;
 import java.awt.Label;
 import java.awt.Image;
-public class EFishGreen {
+import javax.swing.JTextArea;
+public class EFishGreen extends JFrame implements ActionListener{
 
+	private JTextArea textArea;
 	private JFrame frame;
+	private File file;
+	private LinkedHashMap<String, String[]> data;
 
 	/**
 	 * Launch the application.
@@ -44,84 +61,228 @@ public class EFishGreen {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+		data = new LinkedHashMap<String, String[]>();
 		frame = new JFrame();
 		frame.setBounds(100, 100, 665, 555);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		SpringLayout springLayout = new SpringLayout();
 		frame.getContentPane().setLayout(springLayout);
 		
 		JButton btnWaterLevel = new JButton("Water Level");
+		btnWaterLevel.setLocation(frame.getWidth()/4*3,frame.getHeight()/16*5);
 		springLayout.putConstraint(SpringLayout.EAST, btnWaterLevel, -10, SpringLayout.EAST, frame.getContentPane());
 		frame.getContentPane().add(btnWaterLevel);
-		
-		JButton btnWateTemperature = new JButton("Wate Temp");
+		btnWaterLevel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(data.isEmpty()) {
+					System.out.println("Please import data first");
+					textArea.setText("Please import data first");
+				}
+				else {
+				graphBase waterLvlGraph = new graphBase("Water Level over time", "water level", data, 0, "Water Level");
+				waterLvlGraph.pack();
+				RefineryUtilities.centerFrameOnScreen(waterLvlGraph);
+				waterLvlGraph.setVisible(true);
+				waterLvlGraph.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+				}
+			}
+		});
+		JButton btnWateTemperature = new JButton("Water Temp");
 		springLayout.putConstraint(SpringLayout.WEST, btnWateTemperature, 514, SpringLayout.WEST, frame.getContentPane());
 		springLayout.putConstraint(SpringLayout.WEST, btnWaterLevel, 0, SpringLayout.WEST, btnWateTemperature);
 		springLayout.putConstraint(SpringLayout.SOUTH, btnWaterLevel, -6, SpringLayout.NORTH, btnWateTemperature);
 		btnWateTemperature.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				if(data.isEmpty()) {
+					System.out.println("Please import data first");
+					textArea.setText("Please import data first");
+				}
+				else {
+				graphBase waterTempGraph = new graphBase("Water Temperature over time", "water Temperature", data, 1, "Temperature");
+				waterTempGraph.pack();
+				RefineryUtilities.centerFrameOnScreen(waterTempGraph);
+				waterTempGraph.setVisible(true);
+				waterTempGraph.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+				}
 			}
 		});
 		frame.getContentPane().add(btnWateTemperature);
 		
 		JButton btnPhLevel = new JButton(" pH Level");
+		springLayout.putConstraint(SpringLayout.WEST, btnPhLevel, 512, SpringLayout.WEST, frame.getContentPane());
 		springLayout.putConstraint(SpringLayout.SOUTH, btnWateTemperature, -6, SpringLayout.NORTH, btnPhLevel);
+		btnPhLevel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(data.isEmpty()) {
+					System.out.println("Please import data first");
+					textArea.setText("Please import data first");
+				}
+				else {
+				graphBase pHGraph = new graphBase("pH Level over time", "pH Level", data, 2, "pH Level");
+				pHGraph.pack();
+				RefineryUtilities.centerFrameOnScreen(pHGraph);
+				pHGraph.setVisible(true);
+				}
+			}
+		});
 		frame.getContentPane().add(btnPhLevel);
 		
 		JButton btnNitrateLevel = new JButton("Nitrate Level");
+		springLayout.putConstraint(SpringLayout.WEST, btnNitrateLevel, 512, SpringLayout.WEST, frame.getContentPane());
 		springLayout.putConstraint(SpringLayout.SOUTH, btnPhLevel, -6, SpringLayout.NORTH, btnNitrateLevel);
 		springLayout.putConstraint(SpringLayout.SOUTH, btnNitrateLevel, -216, SpringLayout.SOUTH, frame.getContentPane());
+		btnNitrateLevel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(data.isEmpty()) {
+					System.out.println("Please import data first");
+					textArea.setText("Please import data first");
+				}
+				else {
+				graphBase nitrateGraph = new graphBase("Nitrate Level over time", "Nitrate Level", data, 3, "Nitrate Level");
+				nitrateGraph.pack();
+				RefineryUtilities.centerFrameOnScreen(nitrateGraph);
+				nitrateGraph.setVisible(true);
+				}
+			}
+		});
 		frame.getContentPane().add(btnNitrateLevel);
 		
 		JButton btnOxygenLevel = new JButton("Oxygen Level");
 		springLayout.putConstraint(SpringLayout.NORTH, btnOxygenLevel, 6, SpringLayout.SOUTH, btnNitrateLevel);
+		springLayout.putConstraint(SpringLayout.WEST, btnOxygenLevel, 512, SpringLayout.WEST, frame.getContentPane());
+		btnOxygenLevel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(data.isEmpty()) {
+					System.out.println("Please import data first");
+					textArea.setText("Please import data first");
+				}
+				else {
+				graphBase oxygenGraph = new graphBase("Oxygen Level over time", "Oxygen Level", data, 4, "Oxygen");
+				oxygenGraph.pack();
+				RefineryUtilities.centerFrameOnScreen(oxygenGraph);
+				oxygenGraph.setVisible(true);
+				}
+			}
+		});
 		frame.getContentPane().add(btnOxygenLevel);
 		
 		JButton btnAmmonia = new JButton("Ammonia");
 		springLayout.putConstraint(SpringLayout.NORTH, btnAmmonia, 6, SpringLayout.SOUTH, btnOxygenLevel);
 		springLayout.putConstraint(SpringLayout.EAST, btnAmmonia, 0, SpringLayout.EAST, btnPhLevel);
+		btnAmmonia.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(data.isEmpty()) {
+					System.out.println("Please import data first");
+					textArea.setText("Please import data first");
+				}
+				else {
+				graphBase ammoniaGraph = new graphBase("Ammonia Level over time", "Ammonia Level", data, 5, "Ammonia");
+				ammoniaGraph.pack();
+				RefineryUtilities.centerFrameOnScreen(ammoniaGraph);
+				ammoniaGraph.setVisible(true);
+				}
+			}
+		});
 		frame.getContentPane().add(btnAmmonia);
 		
 		JButton btnLightIntensity = new JButton("Light Intensity");
 		springLayout.putConstraint(SpringLayout.NORTH, btnLightIntensity, 6, SpringLayout.SOUTH, btnAmmonia);
 		springLayout.putConstraint(SpringLayout.WEST, btnLightIntensity, 0, SpringLayout.WEST, btnWaterLevel);
+		btnLightIntensity.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(data.isEmpty()) {
+					System.out.println("Please import data first");
+					textArea.setText("Please import data first");
+				}
+				else {
+				graphBase lightIntensityGraph = new graphBase("Light Intensity Control", "Light Intensity", data, 6, "Intensity");
+				lightIntensityGraph.pack();
+				RefineryUtilities.centerFrameOnScreen(lightIntensityGraph);
+				lightIntensityGraph.setVisible(true);
+				}
+			}
+		});
 		frame.getContentPane().add(btnLightIntensity);
 		
 		JButton btnAirTemp = new JButton("Air/Humidity");
 		springLayout.putConstraint(SpringLayout.NORTH, btnAirTemp, 6, SpringLayout.SOUTH, btnLightIntensity);
+		springLayout.putConstraint(SpringLayout.WEST, btnAirTemp, 512, SpringLayout.WEST, frame.getContentPane());
 		springLayout.putConstraint(SpringLayout.SOUTH, btnAirTemp, -83, SpringLayout.SOUTH, frame.getContentPane());
 		springLayout.putConstraint(SpringLayout.EAST, btnAirTemp, -10, SpringLayout.EAST, frame.getContentPane());
 		btnAirTemp.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				if(data.isEmpty()) {
+					System.out.println("Please import data first");
+					textArea.setText("Please import data first");
+				}
+				else {
+				graphBase airTempGraph = new graphBase("Air Temperature/Humidity Level Over Time", "Air Temperature/Humidity Level", data, 7, "Air Temp/Humidity");
+				airTempGraph.pack();
+				RefineryUtilities.centerFrameOnScreen(airTempGraph);
+				airTempGraph.setVisible(true);
+				}
 			}
 		});
 		frame.getContentPane().add(btnAirTemp);
 		
-		JButton btnPreviousData = new JButton("Previous Data");
-		springLayout.putConstraint(SpringLayout.WEST, btnPreviousData, 24, SpringLayout.WEST, frame.getContentPane());
-		springLayout.putConstraint(SpringLayout.SOUTH, btnPreviousData, -10, SpringLayout.SOUTH, frame.getContentPane());
-		frame.getContentPane().add(btnPreviousData);
-		
 		JButton btnImportData = new JButton("Import Data");
-		springLayout.putConstraint(SpringLayout.WEST, btnImportData, 45, SpringLayout.EAST, btnPreviousData);
-		springLayout.putConstraint(SpringLayout.SOUTH, btnImportData, 0, SpringLayout.SOUTH, btnPreviousData);
+		springLayout.putConstraint(SpringLayout.WEST, btnImportData, 87, SpringLayout.WEST, frame.getContentPane());
+		springLayout.putConstraint(SpringLayout.SOUTH, btnImportData, -10, SpringLayout.SOUTH, frame.getContentPane());
 		frame.getContentPane().add(btnImportData);
+		btnImportData.addActionListener(new ActionListener() {
+	        public void actionPerformed(ActionEvent e) {
+	        	JFileChooser c = new JFileChooser();
+	            // Demonstrate "Open" dialog:
+	            int rVal = c.showOpenDialog(EFishGreen.this);
+	            if (rVal == JFileChooser.APPROVE_OPTION) {
+	              file = c.getSelectedFile();
+	              parseFile parser = new parseFile(data, file);
+	            }
+	        }
+	    } );
 		
 		JButton btnGenerateData = new JButton("Generate Data");
-		springLayout.putConstraint(SpringLayout.WEST, btnGenerateData, 37, SpringLayout.EAST, btnImportData);
-		springLayout.putConstraint(SpringLayout.SOUTH, btnGenerateData, 0, SpringLayout.SOUTH, btnPreviousData);
+		springLayout.putConstraint(SpringLayout.NORTH, btnGenerateData, 0, SpringLayout.NORTH, btnImportData);
+		springLayout.putConstraint(SpringLayout.WEST, btnGenerateData, 84, SpringLayout.EAST, btnImportData);
 		frame.getContentPane().add(btnGenerateData);
-		
-		TextField textField = new TextField();
-		springLayout.putConstraint(SpringLayout.WEST, btnAirTemp, 27, SpringLayout.EAST, textField);
-		springLayout.putConstraint(SpringLayout.WEST, btnOxygenLevel, 27, SpringLayout.EAST, textField);
-		springLayout.putConstraint(SpringLayout.WEST, btnNitrateLevel, 27, SpringLayout.EAST, textField);
-		springLayout.putConstraint(SpringLayout.WEST, btnPhLevel, 27, SpringLayout.EAST, textField);
-		springLayout.putConstraint(SpringLayout.NORTH, textField, 122, SpringLayout.NORTH, frame.getContentPane());
-		springLayout.putConstraint(SpringLayout.WEST, textField, 0, SpringLayout.WEST, btnPreviousData);
-		springLayout.putConstraint(SpringLayout.SOUTH, textField, -17, SpringLayout.NORTH, btnPreviousData);
-		springLayout.putConstraint(SpringLayout.EAST, textField, -168, SpringLayout.EAST, frame.getContentPane());
-		frame.getContentPane().add(textField);
+		btnGenerateData.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//Create a graph in the textField below using the LinkedHashmap data
+				ArrayList<ControlVariable> list = new ArrayList<ControlVariable>();
+				String d = "";
+				for(String k : data.keySet()) {
+					String[] array = data.get(k);
+					double waterLvl = Double.parseDouble(array[0]);
+					double waterTemp = Double.parseDouble(array[1]);
+					double ph = Double.parseDouble(array[2]);
+					double nitrate = Double.parseDouble(array[3]);
+					double oxygen = Double.parseDouble(array[4]);
+					double ammonia = Double.parseDouble(array[5]);
+					double light = Double.parseDouble(array[6]);
+					double air = Double.parseDouble(array[7]);
+					list.add(new ControlVariable(waterLvl, waterTemp, ph,  nitrate,  oxygen,  ammonia,  light,  air));
+					d = k;
+			    }
+				if(data.isEmpty()) {
+					System.out.println("Please import data first");
+					textArea.setText("Please import data first");
+				}
+				else {
+					// Insert data into text field
+					ControlVariable c = list.get(list.size()-1);
+					textArea.append("==================== DATA LIST ====================" + '\n'+ '\n');
+					textArea.append("DATE: " + d +  '\n'+ '\n');
+					textArea.append("WATER-LEVEL: " + Double.toString(c.getWaterLevel()) + '\n'+ '\n');
+					textArea.append("WATER-TEMP: " + Double.toString(c.getWaterTemp()) + '\n'+ '\n');
+					textArea.append("PH: " +  Double.toString(c.getPH()) + '\n'+ '\n');
+					textArea.append("NITRATE: " + Double.toString(c.getNitrate()) + '\n'+ '\n');
+					textArea.append("OXYGEN: " + Double.toString(c.getOxygen()) +'\n'+ '\n');
+					textArea.append("AMMONIA: " +Double.toString(c.getAmmonia()) + '\n'+ '\n');
+					textArea.append("LIGHT-INTENSITY: " + Double.toString(c.getLight()) +'\n'+ '\n');
+					textArea.append("AIR-TEMP: " + Double.toString(c.getAirTemp()) +'\n');
+				}
+			}
+		});
 		
 		JLabel lblNewLabel = new JLabel("");
 		springLayout.putConstraint(SpringLayout.SOUTH, lblNewLabel, 97, SpringLayout.NORTH, frame.getContentPane());
@@ -131,6 +292,19 @@ public class EFishGreen {
 		springLayout.putConstraint(SpringLayout.NORTH, lblNewLabel, 26, SpringLayout.NORTH, frame.getContentPane());
 		springLayout.putConstraint(SpringLayout.WEST, lblNewLabel, 24, SpringLayout.WEST, frame.getContentPane());
 		frame.getContentPane().add(lblNewLabel);
+		
+		textArea = new JTextArea();
+		springLayout.putConstraint(SpringLayout.NORTH, textArea, 36, SpringLayout.SOUTH, lblNewLabel);
+		springLayout.putConstraint(SpringLayout.WEST, textArea, 24, SpringLayout.WEST, frame.getContentPane());
+		springLayout.putConstraint(SpringLayout.SOUTH, textArea, 195, SpringLayout.SOUTH, btnPhLevel);
+		springLayout.putConstraint(SpringLayout.EAST, textArea, 492, SpringLayout.WEST, frame.getContentPane());
+		frame.getContentPane().add(textArea);
+		
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
 		
 	}
 }

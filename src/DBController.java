@@ -15,6 +15,7 @@ public class DBController {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			connect = DriverManager.getConnection("jdbc:mysql://fdb25.awardspace.net/3018019_efishdb"+"user=3018019_eFishDB&password=eFish@CSBSJU19");
+			System.out.println("Here");
 			st = connect.createStatement();
 		}catch(Exception e) {
 			System.out.println(e);
