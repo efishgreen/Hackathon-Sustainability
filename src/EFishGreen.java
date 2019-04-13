@@ -16,7 +16,6 @@ import java.awt.Image;
 public class EFishGreen {
 
 	private JFrame frame;
-	private JButton prevDataBut;
 
 	/**
 	 * Launch the application.
@@ -118,19 +117,20 @@ public class EFishGreen {
 		springLayout.putConstraint(SpringLayout.WEST, btnOxygenLevel, 27, SpringLayout.EAST, textField);
 		springLayout.putConstraint(SpringLayout.WEST, btnNitrateLevel, 27, SpringLayout.EAST, textField);
 		springLayout.putConstraint(SpringLayout.WEST, btnPhLevel, 27, SpringLayout.EAST, textField);
-		springLayout.putConstraint(SpringLayout.NORTH, textField, 123, SpringLayout.NORTH, frame.getContentPane());
-		springLayout.putConstraint(SpringLayout.WEST, textField, 24, SpringLayout.WEST, frame.getContentPane());
-		springLayout.putConstraint(SpringLayout.SOUTH, textField, -16, SpringLayout.NORTH, btnPreviousData);
+		springLayout.putConstraint(SpringLayout.NORTH, textField, 122, SpringLayout.NORTH, frame.getContentPane());
+		springLayout.putConstraint(SpringLayout.WEST, textField, 0, SpringLayout.WEST, btnPreviousData);
+		springLayout.putConstraint(SpringLayout.SOUTH, textField, -17, SpringLayout.NORTH, btnPreviousData);
 		springLayout.putConstraint(SpringLayout.EAST, textField, -168, SpringLayout.EAST, frame.getContentPane());
 		frame.getContentPane().add(textField);
 		
 		JLabel lblNewLabel = new JLabel("");
 		springLayout.putConstraint(SpringLayout.SOUTH, lblNewLabel, 97, SpringLayout.NORTH, frame.getContentPane());
 		springLayout.putConstraint(SpringLayout.EAST, lblNewLabel, 617, SpringLayout.WEST, frame.getContentPane());
-		Image img = new ImageIcon(this.getClass().getResource("/")).getImage();
+		Image img = new ImageIcon(this.getClass().getResource("/EFishGreenLogo1.png")).getImage();
 		lblNewLabel.setIcon(new ImageIcon(img));
 		springLayout.putConstraint(SpringLayout.NORTH, lblNewLabel, 26, SpringLayout.NORTH, frame.getContentPane());
 		springLayout.putConstraint(SpringLayout.WEST, lblNewLabel, 24, SpringLayout.WEST, frame.getContentPane());
 		frame.getContentPane().add(lblNewLabel);
+		
 	}
 }
